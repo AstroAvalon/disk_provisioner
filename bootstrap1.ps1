@@ -37,17 +37,36 @@ try {
     [System.IO.Compression.ZipFile]::ExtractToDirectory($DownloadPath, $ExtractPath)
 
     # Execute provision_disks.ps1
-    Log "Executing disk_provision.ps1..."
-    & "$ExtractPath\disk_provision.ps1" -LogFile $LogFile
+    try {
+        Log "Executing disk_provision.ps1..."
+        & "$ExtractPath\disk_provision.ps1" -LogFile $LogFile
+        Log "disk_provision.ps1 completed successfully."
+    } catch {
+        Log "Error during disk_provision.ps1: $_"
+    }
 
-    #Install Office
-    Log "Executing install_office.ps1..."
-    & "$ExtractPath\install_office.ps1" -LogFile $LogFile
+    # Install Office
+    try {
+        Log "Executing install_office.ps1..."
+        & "$ExtractPath\install_office.ps1" -LogFile $LogFile
+        Log "install_office.ps1 completed successfully."
+    } catch {
+        Log "Error during install_office.ps1: $_"
+    }
+
+    # Install UiPath
+    try {
+        Log "Executing install_uipath.ps1..."
+        & "$ExtractPath\install_uipath.ps1" -LogFile $LogFile
+        Log "install_uipath.ps1 completed successfully."
+    } catch {
+        Log "Error during install_uipath.ps1: $_"
+    }
 
     # Add additional script calls here if needed
     Log "Bootstrap process completed successfully."
 } catch {
-    Log "Error: $_"
+    Log "Critical error in bootstrap process: $_"
     exit 1
 }
 

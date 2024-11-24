@@ -63,6 +63,16 @@ try {
         Log "Error during install_uipath.ps1: $_"
     }
 
+    # Join the server to the domain
+    try {
+        Log "Executing join_domain.ps1..."
+        & "$ExtractPath\join_domain.ps1" -LogFile $LogFile
+        Log "join_domain.ps1 completed successfully."
+    } catch {
+        Log "Error during join_domain.ps1: $_"
+    }   
+
+
     # Add additional script calls here if needed
     Log "Bootstrap process completed successfully."
 } catch {

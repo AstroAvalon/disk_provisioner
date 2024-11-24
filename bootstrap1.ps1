@@ -38,7 +38,11 @@ try {
 
     # Execute provision_disks.ps1
     Log "Executing disk_provision.ps1..."
-    & "$ExtractPath\disk_provision.ps1" -LogFile "$ExtractPath\Logs\disk_provision.log"
+    & "$ExtractPath\disk_provision.ps1" -LogFile $LogFile
+
+    #Install Office
+    Log "Executing install_office.ps1..."
+    & "$ExtractPath\install_office.ps1" -LogFile $LogFile
 
     # Add additional script calls here if needed
     Log "Bootstrap process completed successfully."

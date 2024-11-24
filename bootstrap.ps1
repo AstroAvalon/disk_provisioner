@@ -70,10 +70,21 @@ try {
         Log "join_domain.ps1 completed successfully."
     } catch {
         Log "Error during join_domain.ps1: $_"
-    }   
-
+    }
 
     # Add additional script calls here if needed
+
+    # Cleanup
+    try {
+        Log "Cleaning up: Removing $DownloadPath..."
+        Remove-Item -Path $DownloadPath -Force
+        Log "Cleaning up: Removing $ExtractPath..."
+        Remove-Item -Path $ExtractPath -Recurse -Force
+        Log "Cleanup completed successfully."
+    } catch {
+        Log "Error during cleanup: $_"
+    }
+
     Log "Bootstrap process completed successfully."
 } catch {
     Log "Critical error in bootstrap process: $_"
